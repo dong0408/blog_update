@@ -11,20 +11,20 @@ import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(config),
-    TypeOrmModule.forFeature([User]),
     JwtModule.registerAsync({
       global: true,
       useFactory(configService: ConfigService) {
         return {
           secret: configService.get('jwt_secret'),
           signOptions: {
-            expiresIn: '30m', // 默认 30 分钟
+            expiresIn: '30m',
           },
         };
       },
       inject: [ConfigService],
     }),
+    TypeOrmModule.forRoot(config),
+    TypeOrmModule.forFeature([User]),
 
     UserModule,
     RedisModule, // 注册user模块
