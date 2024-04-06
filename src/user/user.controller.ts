@@ -56,7 +56,10 @@ export class UserController {
           this.configService.get('jwt_refresh_token_expres_time') || '7d',
       },
     );
-    return vo;
+    const data={
+      data:vo
+    }
+    return data;
   }
 
   @Get('refresh')
